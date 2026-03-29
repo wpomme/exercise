@@ -11,7 +11,7 @@ sort関数の実行時間をbenchmarkを使って計測する
 
 - 実行方法
 
-```ruby
+```bash
 ruby perf-list-sort.rb
 ```
 
@@ -20,6 +20,23 @@ perf-list-sort.rbの実行結果を保存したもの
 
 ### perf-list-sort-result.csv
 perf-list-sort.rbの実行結果をCSVに整形したもの
+
+### perf-list-sort.ts
+perf-list-sort.rbをNodejsで実装したもの。node v24で動作することを確認済み。
+```bash
+node perf-list-sort.ts
+```
+
+### フィッシャー–イェーツのシャッフル
+Wikipediaなどを参照すること。
+
+#### Math.floor(Math.random() * i)
+Math.random() * i -> 0からiまでの疑似乱数を返す。その範囲ではほぼ均一な分布である。
+Math.floor() -> 与えられた数値以下の最大の整数を返す。
+```js
+console.log(Math.floor(5.95));
+// will return 5
+```
 
 ### make-plot.r
 perf-list-sort-result.csvを使ってグラフを作成しようとしたもの
