@@ -12,3 +12,49 @@ b)
   S --> S -----> S -> a
      -> S -> a   S -> a
      -> *        +
+
+Aho. p.219
+文法S => (S)S | e について、例えばSを(S)Sで置き換えることを、導出するといい、S => (S)S で表す
+ex) S => (S)S => ((S)S)S => ((S)S)(S)S => ((S)(S)S)(S)S => (()())()
+
+Aho. p.222
+文脈自由文法: S => S S + | S S * | a
+記号列: aa+a*
+
+a) 最左導出 と b) 最右導出
+) S => S S * => S S + S * まで導出して
+a) => a S + S * => a a + S * => a a + a *
+
+これは違う: b) => S S + a * => S a + a * => a a + a *
+正解は b) S => S S * => S a * => S S + a * => S a + a * => a a + a *
+
+左再帰
+次のような文脈自由文法がある (p.207 - (4.1))
+E => E + T | T
+T => T * F | F
+F => ( E ) | id
+この文法は左再帰である。
+
+左再帰を含む生成規則 A => Aa | b は次のような非左再帰の生成規則によって置き換えられる。
+a) A => Aa | b
+b) A => bR
+   R => aR | e
+
+これを使って(4.1)を次のように書き換える(4.14)
+- 生成規則(Production Rule)
+E  => T E'
+E' => + T E' | e
+T  => F T'
+T' => * F T' | e
+F => ( E ) | id
+
+FIRST(E') = {+, e}
+FIRST(T') = {*, e}
+FIRST(F) = {(, id}
+FIRST(E) = FIRST(T) = FIRST(F) = {(, id}
+## FIRST(E) -> FIRST(T E') -> FIRST(T)
+## FIRST(T) -> FIRST(F T') -> FIRST(F)
+
+FOLLOW(E) = {), $}
+FOLLOW(T) = FOLLOW(T') = {+, ), $}
+FOLLOW(F) = {+, *, ), $}
