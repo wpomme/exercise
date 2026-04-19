@@ -15,7 +15,7 @@ def dp(n)
   cost1 = (height[n] - height[n - 1]).abs
   cost2 = (height[n] - height[n - 2]).abs
 
-  [dp(n-1) + cost1, dp(n-2) + cost2].min
+  [dp(n - 1) + cost1, dp(n - 2) + cost2].min
 end
 
 p dp(2) # dp(6) は8となる
