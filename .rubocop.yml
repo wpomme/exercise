@@ -1,0 +1,34 @@
+AllCops:
+  NewCops: enable
+  SuggestExtensions: false
+
+# 行の長さ（デフォルト: 120）
+Layout/LineLength:
+  Max: 160
+  AllowedPatterns:
+    # コメント行は除外
+    - '\A\s*#'
+
+# メソッドの長さ
+Metrics/MethodLength:
+  Max: 20
+
+# クラスの長さ
+Metrics/ClassLength:
+  Max: 200
+
+# ABCメトリクス（複雑度）
+Metrics/AbcSize:
+  Max: 20
+
+# ドキュメントコメント必須を無効化
+Style/Documentation:
+  Enabled: false
+
+# frozen_string_literal コメント必須を無効化
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+# 文字列についてシングルクオート強制を無効化
+Style/StringLiterals:
+  Enabled: false

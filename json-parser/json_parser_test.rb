@@ -28,4 +28,25 @@ class JsonParserTest < Minitest::Test
     assert_equal [nil, "0", "001", "-12"], jp.match_number("0.001E-12").captures
     assert_equal ["-", "0", "001", "10"], jp.match_number("-0.001e10").captures
   end
+
+  def test_match_whitespace?
+    jp = JsonParser.new
+
+    #TODO 空文字もmatchできるようにしたい
+    # assert_equal true, jp.match_whitespace?("")
+    assert_equal true, jp.match_whitespace?(" ")
+    assert_equal true, jp.match_whitespace?("   ")
+    assert_equal true, jp.match_whitespace?("\n")
+    assert_equal true, jp.match_whitespace?("\r")
+    assert_equal true, jp.match_whitespace?("\t")
+    assert_equal true, jp.match_whitespace?(" \n\r\t ")
+    # 垂直タブ(\v)はfalse
+    assert_equal false, jp.match_whitespace?("\v")
+    # 改ページ(\f)はfalse
+    assert_equal false, jp.match_whitespace?("\f")
+    # パイプもmatchしないようにする
+    assert_equal false, jp.match_whitespace?("|")
+    # 文字はfalse
+    assert_equal false, jp.match_whitespace?("a")
+  end
 end
