@@ -32,3 +32,7 @@ Style/FrozenStringLiteralComment:
 # 文字列についてシングルクオート強制を無効化
 Style/StringLiterals:
   Enabled: false
+
+# メソッドの引数名は最低三文字以上必要というのを無効化
+Naming/MethodParameterName:
+  Enabled: false

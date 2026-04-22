@@ -2,7 +2,7 @@
 # dp(6) は8となる
 
 def dp(n)
-  return 0 if n == 0 # dp(0)
+  return 0 if n.zero? # dp(0)
   return 7 if n == 1 # dp(1)
 
   lst = [0, 7]

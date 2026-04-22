@@ -7,7 +7,7 @@
 #
 # なお、dp(2)は2となる
 def dp(n)
-  return 0 if n == 0 # dp(0)
+  return 0 if n.zero? # dp(0)
   return 7 if n == 1 # dp(1)
 
   height = [2, 9, 4, 5, 1, 6, 10]

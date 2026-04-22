@@ -1,17 +1,17 @@
 require 'test/unit'
-require_relative './naming_conventions_converter.rb'
+require_relative '../lib/naming_conventions_converter'
 
-class TestCase_NamingConventionsConverter < Test::Unit::TestCase
+class TestCaseNamingConventionsConverter < Test::Unit::TestCase
   def setup
     @obj = NamingConventionsConverter.new
   end
 
-  def test_camel_to_pascal_1
+  def test_camel_to_pascal1
     result = @obj.camel_to_pascal "aBcDefGhijK"
     assert_equal("ABcDefGhijK", result)
   end
 
-  def test_camel_to_pascal_2
+  def test_camel_to_pascal2
     result = @obj.camel_to_pascal "abcDef"
     assert_equal("AbcDef", result)
   end
