@@ -3,5 +3,5 @@
 
 # テスト実行
 ```bash
-ruby reverse_polish_notation_test.rb
+ruby test/reverse_polish_notation_test.rb
 ```

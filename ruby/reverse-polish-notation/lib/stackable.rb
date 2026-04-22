@@ -1,4 +1,4 @@
-class Stack
+module Stackable
   def initialize
     @data = []
   end
