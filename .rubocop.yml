@@ -9,23 +9,15 @@ Layout/LineLength:
     # コメント行は除外
     - '\A\s*#'
 
-# メソッドの長さ
-Metrics/MethodLength:
-  Max: 20
+# メトリクスに関するフォーマットは無効にする
+Metrics:
+  Enabled: false
 
-# クラスの長さ
-Metrics/ClassLength:
-  Max: 200
-
-# ABCメトリクス（複雑度）
-Metrics/AbcSize:
-  Max: 20
-
-# ドキュメントコメント必須を無効化
+# ドキュメントコメントの必須を無効化
 Style/Documentation:
   Enabled: false
 
-# frozen_string_literal コメント必須を無効化
+# frozen_string_literalのコメント必須を無効化
 Style/FrozenStringLiteralComment:
   Enabled: false
 
@@ -33,6 +25,6 @@ Style/FrozenStringLiteralComment:
 Style/StringLiterals:
   Enabled: false
 
-# メソッドの引数名は最低三文字以上必要というのを無効化
+# メソッドの引数名は最低三文字以上でなくてもいい
 Naming/MethodParameterName:
   Enabled: false
