@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require_relative './my_calculator.rb'
 
-class MyUnionTest < MiniTest::Test
+class MyUnionTest < Minitest::Test
   def test_my_calculator_read_1
     str = "9-5+2"
     calc = MyCalculator.new
