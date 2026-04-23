@@ -5,8 +5,11 @@
 # FIRST(E) = FIRST(T) = FIRST(F) = {(, id}
 
 require_relative 'syntax_stack'
+require_relative 'stack_tracable'
 
 class SimpleParser
+  include StackTracable
+
   def read(str)
     # 整数か足し算・掛け算・カッコだけを読み取る
     # 空白や他の記号は読み飛ばす
@@ -24,29 +27,20 @@ class SimpleParser
   end
 
   def _parse(lst)
-    stk = SyntaxStack.new
-    non_terminal_map_for_debug = { expr: 'E', expr_rest: "E'", term: 'T', term_rest: "T'", factor: 'F' }
+    syntax_stack = SyntaxStack.new
+    # non_terminal_map_for_debug = { expr: 'E', expr_rest: "E'", term: 'T', term_rest: "T'", factor: 'F' }
     non_terminal_lst = %i[expr expr_rest term term_rest factor]
     ip = 0
     output = []
 
-    while stk.read != '$'
-      if non_terminal_lst.include?(stk.read)
+    while syntax_stack.read != '$'
+      if non_terminal_lst.include?(syntax_stack.read)
         # (DEBUG): Print Syntax stack and unprocessed lst
-        stk.data.reverse.each do |i|
-          if i == '$'
-            print i
-          else
-            print non_terminal_map_for_debug[i]
-          end
-        end
-        print "\t"
-        lst.last(lst.length - ip).each { |i| print i }
-        puts
+        stack_trace(syntax_stack, lst, ip)
         # (DEBUG): END
-        stk.derive(stk.read, lst[ip])
+        syntax_stack.derive(syntax_stack.read, lst[ip])
       else
-        output << stk.pop
+        output << syntax_stack.pop
         ip += 1
       end
     end
