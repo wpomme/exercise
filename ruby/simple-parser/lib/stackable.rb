@@ -14,4 +14,9 @@ module Stackable
   def read
     @data.last
   end
+
+  # デバッグ用にスタックを底から取り出す
+  def __map_for_debug(&block)
+    @data.map(&block)
+  end
 end
