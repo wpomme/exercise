@@ -1,5 +1,5 @@
 require 'minitest/autorun'
-require_relative './json_parser.rb'
+require_relative '../lib/json_parser'
 
 class JsonParserTest < Minitest::Test
   def test_match_number_integer_and_fraction
@@ -15,6 +15,7 @@ class JsonParserTest < Minitest::Test
     assert_equal [nil, "0", "001", nil], jp.match_number("0.001").captures
     assert_equal ["-", "0", "001", nil], jp.match_number("-0.001").captures
   end
+
   def test_match_number_exponent
     jp = JsonParser.new
 
@@ -32,7 +33,7 @@ class JsonParserTest < Minitest::Test
   def test_match_whitespace?
     jp = JsonParser.new
 
-    #TODO 空文字もmatchできるようにしたい
+    # TODO: 空文字もmatchできるようにしたい
     # assert_equal true, jp.match_whitespace?("")
     assert_equal true, jp.match_whitespace?(" ")
     assert_equal true, jp.match_whitespace?("   ")
