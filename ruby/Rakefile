@@ -1,0 +1,9 @@
+require 'rubocop/rake_task'
+
+desc 'Run RuboCop autocorrect'
+RuboCop::RakeTask.new do |task|
+  task.plugins << 'rubocop-rake'
+end
+
+desc 'alias of "rake rubocop"'
+task fix: [:rubocop]
