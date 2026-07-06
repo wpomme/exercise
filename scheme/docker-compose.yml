@@ -1,0 +1,9 @@
+services:
+  scheme:
+    build: .
+    platform: linux/arm64
+    user: "1000:1000"
+    image: scheme-container:latest
+    volumes:
+      - ./src:/home/hy/app
+    tty: true
