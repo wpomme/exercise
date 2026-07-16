@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class JsonParser
   def match_number(str)
     regex = /

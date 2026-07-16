@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 ##
 # FIRST(E') = {+, e}
 # FIRST(T') = {*, e}

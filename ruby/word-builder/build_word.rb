@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 words = ("a".."c")
 words.each do |str1|
   words.each do |str2|

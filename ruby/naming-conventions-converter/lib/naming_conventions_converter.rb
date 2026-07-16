@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class NamingConventionsConverter
   def camel_to_kebab(str)
     str.gsub(/([A-Z])/, '-\1').downcase

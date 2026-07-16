@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'stackable'
 
 # 動的な終端記号(id)はそのままスタックに入れない方がいい気がする

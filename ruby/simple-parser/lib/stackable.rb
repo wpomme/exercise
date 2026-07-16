@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Stackable
   def initialize
     @data = []
@@ -16,7 +18,7 @@ module Stackable
   end
 
   # デバッグ用にスタックを底から取り出す
-  def __map_for_debug(&block)
-    @data.map(&block)
+  def __map_for_debug(&)
+    @data.map(&)
   end
 end

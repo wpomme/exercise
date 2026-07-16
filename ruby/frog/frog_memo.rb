@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Frog 問題
 # dp(6) は8となる
 

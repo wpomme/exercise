@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 ##
 # まずは、足し算と引き算と数値だけの場合
 # 1) は 2)に変換できる

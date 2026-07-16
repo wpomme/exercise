@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Node
   def initialize(value, left = nil, right = nil)
     @value = value

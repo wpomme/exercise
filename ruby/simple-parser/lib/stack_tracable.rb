@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # StackTracable: DEBUG for Printing Syntax stack and unprocessed list
 # syntax_stackが引数になることが前提となってしまっている
 module StackTracable
