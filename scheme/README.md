@@ -1,6 +1,10 @@
 ## scheme
 - schemeの処理系を動かすためにdockerコンテナを作成する
 ```bash
+## シェルにログイン
+## これでもいい
+docker run --rm -ti practicalscheme/gauche
+
 ## 起動
 make
 

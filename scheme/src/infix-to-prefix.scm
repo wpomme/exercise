@@ -12,6 +12,8 @@
                             (** . 3)))))
 
 ;; 中置記法から前置記法へ変換する手続き
+;; (infix->prefix '(a * b + c))
+;; => (+ (* a b) c)
 (define (infix->prefix expr)
   (in-pre-aux expr '() '()))
 
@@ -32,33 +34,67 @@
   (if (member expr '(+ - * / **)) #f
     (not (pair? expr))))
 
-;; (infix->prefix '(a * b + c))
+;; expr, opr, opdはスタックである
+;; expr: 初期値に中置表記の式を取る
+;; opr: 演算子を一時的に保存するところ
+;; opd: exprとoprから求められる前置表記
+;; (cons (list (car opr) (cadr opd) (car opd))
+;;      (cddr opd))
+
+;; 注釈１
+;; opr: (+)
+;; opd: (c (* a b))
+;; から
+;; opr: ()
+;; opd: (* (* a b) c)
+;; に変換する
+;; 
+;; 例１
+;; (cadr '(c (* a b)))
+;; => (* a b)
+;; (car '(c (* a b)))
+;; => c
+;; (cddr '(c (* a b)))
+;; => ()
+;;
+;; 例２
+;; (cons (list (car '(+)) (cadr '(c (* a b))) (car '(c (* a b))))
+;;      (cddr '(c (* a b))))
+;; => ((+ (* a b) c))
 (define (in-pre-aux expr opr opd)
   (cond
+    ;; 中置表記が空になった場合
     ((null? expr)
+     ;; 演算子を保存するスタックも空なら最終的な式を返す
      (if (null? opr) (car opd)
        (in-pre-aux
          expr
          (cdr opr)
+         ;; 注釈１
          (cons (list (car opr) (cadr opd) (car opd))
                (cddr opd)))))
+    ;; exprのcar部が定数なら、その定数をopdに追加する
     ((constant? expr)
      (in-pre-aux (cdr expr) opr (cons expr opd)))
     ((constant? (car expr))
      (in-pre-aux (cdr expr) opr (cons (car expr) opd)))
+    ;; exprのcar部が演算子の場合
     (else
+      ;; 演算子のスタックoprが空ならexprの演算子をそのままoprに追加する
       (cond ((null? opr)
              (in-pre-aux (cdr expr)
                          (cons (car expr) opr)
                          opd))
+            ;; oprが空でなければ、演算子の結合度により、
             ((greater? (car expr) (car opr))
              (in-pre-aux (cdr expr)
                          (cons (car expr) opr)
                          opd))
             (else
-              in-pre-aux
+              (in-pre-aux
               (cdr expr)
               (cons (car expr) (cdr opr))
+              ;; 注釈１と同じパターン
               (cons (list (car opr)
                           (cadr opd) (car opd))
-                    (cddr opd)))))))
+                    (cddr opd))))))))
