@@ -10,7 +10,6 @@
 (define (weight ope)
   (cdr (assoc ope '((+ . 1) (- . 1) (* . 2) (/ . 2)
                             (** . 3)))))
-
 ;; 中置記法から前置記法へ変換する手続き
 ;; (infix->prefix '(a * b + c))
 ;; => (+ (* a b) c)

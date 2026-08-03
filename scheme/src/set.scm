@@ -48,7 +48,7 @@
         (else (union (cdr a) (cons (car a) b)))))
 
 ;; 集合AとBの共通集合を求める手続き
-:: 例
+;; 例
 ;; (intersection '(1 2 3) '(1 2 3)) => (1 2 3)
 ;; (intersection '(1 2 3) '(4 5 6)) => ()
 ;; (intersection '(1 2 3 4 5) '(3 4 5 6)) => (3 4 5)
@@ -58,3 +58,21 @@
          (cons (car a) (intersection (cdr a) b)))
         (else (intersection (cdr a) b))))
 
+;; 集合AとBの差集合を求める手続き
+;; 例
+;; (difference '(2 3 1) '(1 2 3))
+;; => ()
+;; (difference '(1 2 3 4 5) '(3 2 1))
+;; => (4 5)
+;; (difference '(12 1 2 3 4 5) '(3 2 1 7 8 9 10))
+;; => (5 4 12)
+;; ((element? a) b) => #t なら()
+;; ((element? a) b) => #f なら(union (car a) b)
+(define (difference a b)
+  (difference-aux a b '()))
+
+;; 最終的に値を返すための引数cを使う
+(define (difference-aux a b c)
+  (cond ((empty? a) c)
+        ((element? (car a) b) (difference-aux (cdr a) b c))
+        (else (difference-aux (cdr a) b (cons (car a) c)))))
