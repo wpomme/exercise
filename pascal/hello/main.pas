@@ -1,0 +1,4 @@
+program Hello(Output);
+begin
+  Writeln('Hello, world.');
+end.
