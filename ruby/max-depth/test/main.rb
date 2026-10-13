@@ -5,10 +5,10 @@ require_relative '../lib/main'
 
 class MaxDepthOfBinaryTreeTest < Minitest::Test
   def test_execute1
-    root = [3, 9, 20, nil, nil, 15, 7]
-    bt = BinaryTree.from_array(root)
+    array = [3, 9, 20, nil, nil, 15, 7]
+    root = from_array(array)
 
-    pp bt
-    assert(bt, '')
+    pp root
+    assert(c, 0)
   end
 end
