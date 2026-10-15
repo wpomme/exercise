@@ -30,33 +30,54 @@ def from_array(arr)
   nodes[0]
 end
 
-# LinkedListのheadだけを返すようにする
-def merge_two_lists(list1, list2)
-  result = ListNode.new
+def traverse_link_aux(head, arr)
+  return if head.nil?
 
-  if list1.nil? && list2.nil?
-    result
-  elsif list1.nil? && !list2.nil?
-    # list2
-    result.val = list2.val
-    result.next = list2.next
-    result
-    # result(list2.val, list2.next)
-  elsif list2.nil?
-    # list1
-    result.val = list1.val
-    result.next = list1.next
-    result
-    # result(list1.val, list1.next)
-  elsif list1.val <= list2.val
-    next_node = list1.next
-    list1.next = list2
-    merge_two_lists(next_node, list2)
-    # result = merge_two_lists(next_node, list2)
+  arr << head.val
+  traverse_link_aux(head.next, arr)
+  arr
+end
+
+def traverse_link(head)
+  traverse_link_aux(head, [])
+end
+
+def aux(list1, list2, head)
+  if !list1.nil? && !list2.nil?
+    if list1.val <= list2.val
+      next_node = list1.next
+      list1.next = list2
+      return aux(next_node, list2, list1) if head.nil?
+
+      aux(next_node, list2, head)
+    else
+      next_node = list2.next
+      list2.next = list1
+
+      return aux(list1, next_node, list2) if head.nil?
+
+      aux(list1, next_node, head)
+    end
   else
-    next_node = list2.next
-    list2.next = list1
-    merge_two_lists(list1, next_node)
-    # result = merge_two_lists(list1, next_node)
+    unless list1.nil?
+      return [list1, list1] if head.nil?
+
+      [list1, head]
+    end
+    unless list2.nil?
+      return [list2, list2] if head.nil?
+
+      [list2, head]
+    end
+
+    result = ListNode.new
+    return [result, head] if head.nil?
+
+    [result, head]
   end
+end
+
+def merge_two_lists(list1, list2)
+  _, head = aux(list1, list2, nil)
+  head
 end
