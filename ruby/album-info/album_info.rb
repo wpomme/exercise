@@ -53,6 +53,6 @@ end
 # end
 
 ## 集合を使ってデータベースを実装することもできる。その場合は、検索ロジックも単純になる。
-## 検索ロジックは集合の関演算を使う。
+## 検索ロジックは集合の積演算を使う。
 album_artists = Set.new(album_infos.flat_map(&:last))
 pp album_artists
