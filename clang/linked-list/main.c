@@ -50,21 +50,29 @@ char access(struct element *l, int k) {
 int size(struct element *l) {
   int count = 1;
 
-  while (l->next != NULL) {
+  struct element *traversal;
+  traversal = create();
+  traversal->next = l->next;
+
+  while (traversal->next != NULL) {
     count++;
-    l->next = l->next->next;
+    traversal->next = traversal->next->next;
   }
 
   return count;
 }
 
-// 一度実行するとリストを辿ることが出来なくなってしまう
 void traverse(struct element *l) {
-  printf("%c", l->data);
+  struct element *traversal;
+  traversal = create();
+  traversal->next = l->next;
+  traversal->data = l->data;
 
-  while (l->next != NULL) {
-    printf("%c", l->next->data);
-    l->next = l->next->next;
+  printf("%c", traversal->data);
+
+  while (traversal->next != NULL) {
+    printf("%c", traversal->next->data);
+    traversal->next = traversal->next->next;
   }
   printf("\n");
 }
@@ -76,12 +84,13 @@ int main(void) {
   l = create();
   l->data = 'z';
 
-  for (int i = 1; i <= 10; i++) {
+  for (int i = 1; i <= 26; i++) {
     // 0x61 == a
     insert(l, i, 0x60 + i);
   }
 
   traverse(l);
+  printf("%i", size(l));
 
   return 0;
 }
