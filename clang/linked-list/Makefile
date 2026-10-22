@@ -1,23 +1,25 @@
 CC	= gcc
 CFLAGS	= -Wall --pedantic-errors
-PROGRAM	= main
-DEBUG	= debug
+MAIN	= main
+TEST	= test
+SRCS	= list.c solution.c
 
-$(PROGRAM): main.o
-	$(CC) $(CFLAGS) -o main.out main.o
+$(MAIN): $(MAIN).c $(SRCS)
+	$(CC) $(CFLAGS) -o $(MAIN).out $?
 
-main.o: main.c
-	$(CC) $(CFLAGS) -c main.c
+build_test: $(TEST).c $(SRCS)
+	$(CC) $(CFLAGS) -o $(TEST).out $?
 
-clean:; rm -rf *.o $(PROGRAM)
+clean:; rm -rf *.o $(MAIN).out $(TEST).out
 
-run:; ./main.out
+run:; ./$(MAIN).out
 
-test:; ./main.out < test.txt
+test: build_test
+	./$(TEST).out
 
 copy:; cat ./main.c | pbcopy
 
-debug: debug.out
-	$(CC) $(CFLAGS) -g -o debug.out main.c
+debug: $(MAIN).c $(SRCS)
+	$(CC) $(CFLAGS) -g -o debug.out $@
 
 lldb:; lldb ./debug.out
