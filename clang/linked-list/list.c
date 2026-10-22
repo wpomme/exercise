@@ -28,6 +28,24 @@ void list_insert(ListNode *l, int k, int item) {
   }
 }
 
+ListNode *list_create_all(int data[], int size) {
+  ListNode *list_nodes[size];
+
+  for (int i = 0; i < size; i++) {
+    list_nodes[i] = list_create();
+    list_nodes[i]->data = data[i];
+  }
+
+  for (int i = 0; i < size - 1; i++) {
+    list_nodes[i]->next = list_nodes[i+1];
+  }
+
+  // 最後の要素はNULLを参照する
+  list_nodes[size - 1]->next = NULL;
+
+  return list_nodes[0];
+}
+
 void list_delete(ListNode *l, int k) {
   if (k > 0 && l->next->next != NULL) {
     list_delete(l->next, k-1);
@@ -36,6 +54,7 @@ void list_delete(ListNode *l, int k) {
     tmp = l->next;
     l->next = l->next->next;
     free(tmp);
+    tmp = NULL;
   }
 }
 
