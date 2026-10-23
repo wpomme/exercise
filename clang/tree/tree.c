@@ -32,7 +32,7 @@ BinaryTree *tree_create_tree(int data[], int size) {
     int left = 2 * i + 1;
     int right = left + 1;
 
-    if (left > size) {
+    if (left >= size) {
       break;
     }
 
