@@ -1,25 +1,17 @@
 CC	= gcc
 CFLAGS	= -Wall --pedantic-errors
-MAIN	= main
-TEST	= test
+test_src_files = $(wildcard test_*.c)
+test_exe_files = $(patsubst %.c,%.out,$(test_src_files))
 SRC	= list.c
 
-$(MAIN): $(MAIN).c $(SRC)
-	$(CC) $(CFLAGS) -o $(MAIN).out $?
+test: $(test_exe_files)
+	./$<
 
-build_test: $(TEST).c $(SRC)
-	$(CC) $(CFLAGS) -o $(TEST).out $?
+all:;
 
-clean:; rm -rf *.o $(MAIN).out $(TEST).out
+%.out: %.c $(SRC)
+	$(CC) $(CFLAGS) -o $@ $?
 
-run:; ./$(MAIN).out
+clean:; rm -rf *.out
 
-test: build_test
-	./$(TEST).out
-
-copy:; cat ./main.c | pbcopy
-
-debug: $(MAIN).c $(SRC)
-	$(CC) $(CFLAGS) -g -o debug.out $@
-
-lldb:; lldb ./debug.out
+.PHONY: test

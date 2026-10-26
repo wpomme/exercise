@@ -2,14 +2,14 @@
 #include <stdlib.h>
 #include "list.h"
 
-ListNode *list_new(void) {
+ListNode *list_allocate(void) {
   return ((ListNode*) (unsigned long *)malloc(sizeof(ListNode)));
 }
 
-ListNode *list_create(void) {
+ListNode *list_new_empty_node(void) {
   ListNode *p;
 
-  p = list_new();
+  p = list_allocate();
   p->data = 0;
   p->next = NULL;
   return(p);
@@ -21,18 +21,18 @@ void list_insert(ListNode *l, int k, int item) {
   if (k > 0) {
     list_insert(l->next, k-1, item);
   } else {
-    p = list_new();
+    p = list_allocate();
     p->data = item;
     p->next = l->next;
     l->next = p;
   }
 }
 
-ListNode *list_create_all(int data[], int size) {
+ListNode *list_build_nodes_from_array(int data[], int size) {
   ListNode *list_nodes[size];
 
   for (int i = 0; i < size; i++) {
-    list_nodes[i] = list_create();
+    list_nodes[i] = list_new_empty_node();
     list_nodes[i]->data = data[i];
   }
 
@@ -58,24 +58,17 @@ void list_delete(ListNode *l, int k) {
   }
 }
 
-int list_size(ListNode *l) {
+int list_size(ListNode *head) {
   int count = 0;
-
-  ListNode *traversal;
-  traversal = list_create();
-  traversal->next = l->next;
-
-  while (traversal->next != NULL) {
+  for (ListNode *pos = head; pos != NULL; pos = pos->next) {
     count++;
-    traversal->next = traversal->next->next;
   }
-
   return count;
 }
 
 void list_traverse(ListNode *l) {
   ListNode *traversal;
-  traversal = list_create();
+  traversal = list_new_empty_node();
   traversal->next = l->next;
   traversal->data = l->data;
 
@@ -86,25 +79,3 @@ void list_traverse(ListNode *l) {
     traversal->next = traversal->next->next;
   }
 }
-
-int list_size2(ListNode *head) {
-  int count = 0;
-  for (ListNode *pos = head; pos != NULL; pos = pos->next) {
-    count++;
-  }
-  return count;
-}
-
-// void list_search(ListNode *l) {
-//   for (struct pos = l; pos != NULL; pos = pos->next) {
-//     // if (found) {
-//     //   break;
-//     // }
-//   }
-//
-//   if (pos == NULL) {
-//     // 見つからなかった場合
-//   } else {
-//     // 見つかった場合
-//   }
-// }
